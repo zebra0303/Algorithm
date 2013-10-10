@@ -11,11 +11,7 @@ Array.prototype.swap = function (sIdx, tIdx ) {
 }
 
 Array.prototype.quickSort = function () {
-	var arr = this;
-
-	_quickSort(0, arr.length -1);
-
-	function _quickSort(leftIdx, rightIdx) {
+	function _quickSort(arr, leftIdx, rightIdx) {
 		if(leftIdx < rightIdx) {
 			var pivot = arr[leftIdx],
 			chkLeftIdx = leftIdx,
@@ -34,12 +30,14 @@ Array.prototype.quickSort = function () {
 
 			arr.swap(leftIdx, chkLeftIdx);
 
-			_quickSort(leftIdx, chkLeftIdx-1);
-			_quickSort(chkLeftIdx+1, rightIdx);
+			_quickSort(arr, leftIdx, chkLeftIdx-1);
+			_quickSort(arr, chkLeftIdx+1, rightIdx);
 		}
+
+		return arr;
 	}
 
-	return arr;
+	return _quickSort(this, 0, this.length -1);
 };
 alert(arr.sort());
 alert(arr.quickSort());
