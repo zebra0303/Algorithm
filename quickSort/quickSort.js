@@ -1,6 +1,6 @@
 ;"use strict";
 var log=function(msg){console.log(msg);};
-var alert=function(msg){console.log(msg);};
+var alert=function(msg){log(msg);};
 
 var arr = [3,6,7,5,3,6,2,9,1,5,33,-12,0,-122,-Infinity, 125, 33, 55, 77];
 
