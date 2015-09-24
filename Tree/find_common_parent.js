@@ -22,7 +22,7 @@ function processData(input) {
   var arr_input = input.split(/\r?\n/),
   len = parseInt(arr_input[0], 10),
   arr_sel = arr_input.slice(1, 3),
-  arr_dat = arr_input.slice(3, len+1),
+  arr_dat = arr_input.slice(3),
   arr_mem,
   sel01 = arr_sel[0],
   sel02 = arr_sel[1],
@@ -33,6 +33,9 @@ function processData(input) {
 
   for(i=0; i<dlen; i++) {
     arr_mem = arr_dat[i].split(" ");
+		if(arr_mem.length !== 2) {
+			continue;
+		}
     manager = arr_mem[0];
     member = arr_mem[1];
 
@@ -58,7 +61,7 @@ function processData(input) {
 }
 
 var fs = require('fs');
-fs.readFile('/home/larry/Dropbox/Algorithm/input.txt', function (err, data) {
+fs.readFile('./input.txt', function (err, data) {
   if (err) throw err;
   var input = data.toString();
   processData(input);
