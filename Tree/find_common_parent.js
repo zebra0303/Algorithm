@@ -28,7 +28,7 @@ function processData(input) {
   sel02 = arr_sel[1],
   dlen = arr_dat.length,
   slen = arr_sel.length,
-  i, j, level, rtn, start, end,
+  i, level, rtn, start, end,
   tree = {};
 
   for(i=0; i<dlen; i++) {
