@@ -1,6 +1,6 @@
 function find_mem(start, end, tree) {
-  if(tree[start.owner].level === 0 && tree[end.owner].level === 0) {
-    return start.owner;
+  if(tree[end.owner].level === 0) {
+    return end.owner;
   }
   else if(start.owner === end.name) {
     return end.name;
@@ -33,9 +33,9 @@ function processData(input) {
 
   for(i=0; i<dlen; i++) {
     arr_mem = arr_dat[i].split(" ");
-		if(arr_mem.length !== 2) {
-			continue;
-		}
+    if(arr_mem.length !== 2) {
+      continue;
+    }
     manager = arr_mem[0];
     member = arr_mem[1];
 
