@@ -1,6 +1,4 @@
 function find_mem(start, end, tree) {
-  //console.log(start);
-  //console.log(end);
   if(tree[start.owner].level === 0 && tree[end.owner].level === 0) {
     return start.owner;
   }
@@ -46,7 +44,6 @@ function processData(input) {
     tree[member] = {name: member, level: level, owner: manager};
   }
 
-  //console.log(tree);
   if(tree[sel01].level > tree[sel02].level) {
     start = tree[sel01];
     end = tree[sel02];
@@ -66,3 +63,18 @@ fs.readFile('/home/larry/Dropbox/Algorithm/input.txt', function (err, data) {
   var input = data.toString();
   processData(input);
 });
+
+/* Input Data
+
+10
+Sara
+Qing
+Jone Tom
+Jone Toby
+Toby Ann
+Tom Natan
+Tom Sara
+Sara Larry
+Natan Qing
+Natan Fred
+*/
