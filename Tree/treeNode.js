@@ -28,6 +28,7 @@ function tree_node(data) {
           children: []
         };
       }
+
       nodes[item.parent_id].children.push(nodes[item.id]);
     }
     else {
