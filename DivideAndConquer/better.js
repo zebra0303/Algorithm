@@ -12,6 +12,7 @@ var arr_data = [13, -3, -25, 20, -3, -16, -23, 18, 20, -7, 12, -5, -22, 15, -4, 
      // reset chk_max
      chk_max = 0;
      child_max = 0;
+
      for (j = i; j > chk_idx; j--) {
        chk_cnt++;
        console.log(chk_cnt + ", "+ i+":"+j);

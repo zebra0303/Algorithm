@@ -6,10 +6,9 @@ function fibo (n) {
     return cache[n];
   }
   else {
-    rtn_val = fibo(n-1) + fibo(n-2);
-    cache[n] = rtn_val;
+    cache[n] = fibo(n-1) + fibo(n-2);
 
-    return rtn_val;
+    return cache[n];
   }
 }
 /*
