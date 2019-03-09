@@ -13,6 +13,7 @@ function chk_sum(sum, idx) {
   } else {
     sum += num;
 
+
     if (sum === 200) {
       cnt++;
     } else if (sum < 200) {
@@ -29,4 +30,4 @@ for (i = 0; i < len_arr; i++) {
   chk_sum(0, i);
 }
 
-log(cnt);
+log(cnt); // 73682
