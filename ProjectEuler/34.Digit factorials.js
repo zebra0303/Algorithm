@@ -44,7 +44,7 @@ function is_curious(num) {
   return sum_fnum === num;
 }
 
-for (i = 11; i < 2540160; i++) {
+for (i = 11; i < 2540160; i++) { //9!*7
   if (is_curious(i)) {
     ans += i;
   }
