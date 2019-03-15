@@ -16,7 +16,8 @@ function is_palindrome(num) {
 }
 
 while (num < max_num) {
-  if (is_palindrome(num) &&
+  if (num % 10 > 0 &&
+    is_palindrome(num) &&
     is_palindrome((num).toString(2))) {
     ans += num;
   }
