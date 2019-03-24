@@ -14,7 +14,8 @@ function make_pd_case(arr_new, arr_old) {
   } else {
     for (i = 0; i < len_arr_old; i++) {
       num = arr_old[i];
-      if(len_arr_new >= 3 && parseInt(arr_new[len_arr_new - 2] + "" + arr_new[len_arr_new - 1] + "" + num, 10) % arr_pnum[len_arr_new - 3] !== 0) {
+      if (len_arr_new >= 3 &&
+        parseInt(arr_new[len_arr_new - 2] + "" + arr_new[len_arr_new - 1] + "" + num, 10) % arr_pnum[len_arr_new - 3] !== 0) {
         continue;
       }
 
