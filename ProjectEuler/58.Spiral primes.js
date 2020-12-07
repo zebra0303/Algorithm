@@ -25,6 +25,7 @@ function isPrime(num) {
 }
 
 while (ratioSpiralPrime >= 0.1) {
+  // since every 4th number is sqare number 9 25 49 ...
   for (let i=0; i<3; i++) {
     num += 2*nth;
 
