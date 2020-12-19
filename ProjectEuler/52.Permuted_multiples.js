@@ -25,4 +25,5 @@ let num = 1;
 while (!chkNum(num)) {
   num++;
 }
+
 log(`The answer is ${num}`);
