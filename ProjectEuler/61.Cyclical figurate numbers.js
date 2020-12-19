@@ -10,8 +10,8 @@ const objPolyNums = {
   arrOcta: [],
 };
 
-const arrPloyName = [null, null, null, "arrTri", "arrSqua",
-  "arrPenta", "arrHexa", "arrHepta", "arrOcta"];
+const arrPloyName = [null, null, null, 'arrTri', 'arrSqua',
+  'arrPenta', 'arrHexa', 'arrHepta', 'arrOcta'];
 
 // Set the polygonal numbers that is needed for checking
 // https://mathworld.wolfram.com/PolygonalNumber.html
@@ -48,7 +48,7 @@ function findCyclicalNums(arrAns, chkObjPolyNums) {
       arrNumFound = chkArr;
     } else {
       const chkNum = arrAns[lenArrAns - 1];
-      arrNumFound = chkArr.filter((num) => (num + "").substr(0, 2) === (chkNum + "").substr(2));
+      arrNumFound = chkArr.filter((num) => (num + '').substr(0, 2) === (chkNum + '').substr(2));
     }
 
     const lenArrNumFound = arrNumFound.length;
@@ -61,7 +61,7 @@ function findCyclicalNums(arrAns, chkObjPolyNums) {
         delete objCopy[key];
         const arrFound = [...arrAns, numFound];
 
-        if (lenArrAns === 5 && (numFound + "").substr(2) === (arrAns[0] + "").substr(0, 2)) {
+        if (lenArrAns === 5 && (numFound + '').substr(2) === (arrAns[0] + '').substr(0, 2)) {
           arrCyclicalNums = arrFound;
           break mainLoop;
         } else {
