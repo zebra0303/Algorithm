@@ -13,7 +13,7 @@ const objPolyNums = {
 const arrPloyName = [null, null, null, "arrTri", "arrSqua",
   "arrPenta", "arrHexa", "arrHepta", "arrOcta"];
 
- // Set the polygonal numbers that is needed for checking
+// Set the polygonal numbers that is needed for checking
 // https://mathworld.wolfram.com/PolygonalNumber.html
 // Pol(m;n+1)=Pol(m;n)+(m−2)n+1
 for (let i = 3; i < 9; i++) {
