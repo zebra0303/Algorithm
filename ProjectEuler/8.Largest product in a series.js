@@ -20,34 +20,34 @@ var txt = `73167176531330624919225119674426574742355349194934
 84580156166097919133875499200524063689912560717606
 05886116467109405077541002256983155200055935729725
 71636269561882670428252483600823257530420752963450`,
-arr_txt,
-arr_num,
-chk_cnt = 0,
-max_arr,
-max = 0;
+  arr_txt,
+  arr_num,
+  chk_cnt = 0,
+  max_arr,
+  max = 0;
 
-const chk_len = 5;
+const chk_len = 13;
 
 txt = txt.replace(/\r?\n/g, "");
 arr_txt = txt.split("");
 txt = null;
 
-while(arr_num = [arr_txt.shift(), ...arr_txt.slice(0, 4)]) {
-  if(arr_num.length < chk_len) {
+while (arr_num = [arr_txt.shift(), ...arr_txt.slice(0, chk_len - 1)]) {
+  if (arr_num.length < chk_len) {
     break;
   }
   let chk_num = 1;
 
-  if(parseInt(arr_num[chk_len - 1], 10) === 0) {
-    arr_txt.splice(0, chk_len-1);
+  if (parseInt(arr_num[chk_len - 1], 10) === 0) {
+    arr_txt.splice(0, chk_len - 1);
     continue;
   }
 
-  for(let i=0; i<chk_len; i++) {
+  for (let i = 0; i < chk_len; i++) {
     chk_num *= arr_num[i];
   }
 
-  if(chk_num > max) {
+  if (chk_num > max) {
     max = chk_num;
     max_arr = arr_num;
   }
