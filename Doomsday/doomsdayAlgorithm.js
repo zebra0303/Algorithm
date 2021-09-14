@@ -14,7 +14,7 @@ const numAnchorday = arrAnchorday[numYearFront%4];
 const numQuotient = Math.floor(numYearEnd/12);
 // 3. 년도 뒷자리 2 숫자를 12로 나눈 나머지 : 매년 하루씩 증가
 const numRemainder = numYearEnd%12;
-// 4. 위 나머지를 4로 나눈 값 : 4년마다 유년이 있음
+// 4. 위 나머지를 4로 나눈 값 : 4년마다 윤년이 있음
 const numQuotient4Remainder = Math.floor(numRemainder/4);
 // 5. 위에서 구한 모든 값을 더한뒤 7로 나눈 나머지가 둠스 데이!!!
 const doomsday = arrWeekday[(numQuotient + numRemainder + numQuotient4Remainder + numAnchorday)%7];
