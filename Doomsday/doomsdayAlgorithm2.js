@@ -10,28 +10,25 @@ const [, strYearFront, strYearEnd] = strYear.split(/^(\d+)(\d{2})$/);
 
 let numWeek = parseInt(strYearEnd, 10);
 
-// 1. 년도수 끝 2자리가 홀수라면 11을 더한다
-if (numWeek%2 !== 0) {
-  numWeek += 11;
-}
+const chkOdd = (num) => {
+  if (num%2 !== 0) {
+    num += 11;
+  }
+  return num;
+};
 
-// 2. 위에서 구한 값을 2로 나눈다
-numWeek /= 2;
-
-// 3. 위에서 나눈 값이 홀수면 11을 더한다
-if (numWeek%2 !== 0) {
-  numWeek += 11;
-}
-
-// 4. 위에서 구한 값을 7로 나눈 나머지의 7의 보수를 구한다
-numWeek = 7 - numWeek%7;
-
-// 5. 년도 뒤 2자리를 제외한 앞자리의 엥커데이 (400년 마다 순환됨)
+// 1. 년도 뒤 2자리를 제외한 앞자리의 엥커데이 (400년 마다 순환됨)
 const numAnchorday = arrAnchorday[parseInt(strYearFront, 10)%4];
-
+// 2. 년도수 끝 2자리가 홀수라면 11을 더한다
+numWeek = chkOdd(numWeek);
+// 3. 위에서 구한 값을 2로 나눈다
+numWeek /= 2;
+// 4. 위에서 나눈 값이 홀수면 11을 더한다
+numWeek = chkOdd(numWeek);
+// 5. 위에서 구한 값을 7로 나눈 나머지의 7의 보수를 구한다
+numWeek = 7 - numWeek%7;
 // 6. 엥커데이와 7의보수를 더한값의 7로 나눈 나머지가 둠스데이!!!
 const doomsday = arrWeekday[(numAnchorday + numWeek)%7];
 
 //log(numWeek, numAnchorday, doomsday);
-
 log(`${strYear}'s doomsday is ${doomsday}!!!`);
