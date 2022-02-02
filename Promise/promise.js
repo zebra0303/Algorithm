@@ -5,63 +5,50 @@ class Promise {
 
   constructor(executor) {
     if (typeof executor !== 'function') {
-      throw TypeError(`TypeError: Promise resolver ${executor} is not a function`);
+      throw TypeError(`Promise resolver ${executor} is not a function`);
     }
 
     this.state = 'pending';
     this.result;
 
-    const resolve = (value) => {
-      this.state = 'fulfilled';
+    const libResolveReject = (state, value, arrStateFunc, arrFinalFunc) => {
+      this.state = state;
       this.result = value;
-
-      this.#arrOnFulfilled.forEach((func, idx) => {
+      arrStateFunc.forEach((func, idx) => {
         const promiseOrValue = func(this.result);
 
         if (promiseOrValue instanceof Promise) {
           // 등록된 함수가 Promise인 경우 그 뒤 함수를 빼서 콜백으로 전달
-          promiseOrValue.then(...this.#arrOnFulfilled.splice(idx + 1, 1));
+          promiseOrValue.then(...arrStateFunc.splice(idx + 1, 1));
         } else {
           this.result = promiseOrValue;
         }
       });
 
-      this.#arrOnFinally.forEach((func) => {
+      arrFinalFunc.forEach((func) => {
         func();
       });
     };
 
+    const resolve = (value) => {
+      libResolveReject('fulfilled', value, this.#arrOnFulfilled, this.#arrOnFinally);
+    };
+
     const reject = (error) => {
-      this.state = 'rejected';
-      this.result = error;
-
-      this.#arrOnRejected.forEach((func, idx) => {
-        const promiseOrValue = func(this.result);
-
-        if (promiseOrValue instanceof Promise) {
-          // 등록된 함수가 Promise인 경우 그 뒤 함수를 빼서 콜백으로 전달
-          promiseOrValue.catch(...this.#arrOnRejected.splice(idx + 1, 1));
-        } else {
-          this.result = promiseOrValue;
-        }
-      });
-
-      this.#arrOnFinally.forEach((func) => {
-        func();
-      });
+      libResolveReject('rejected', error, this.#arrOnRejected, this.#arrOnFinally);
     };
 
     executor(resolve, reject);
   }
 
-  then(func) {
+  #libThenCatch = (state, func, arrStateFunc) => {
     if (this.state === 'pending') {
-      this.#arrOnFulfilled.push(func);
-    } else if (this.state === 'fulfilled') {
+      arrStateFunc.push(func);
+    } else if (this.state === state) {
       if (this.result instanceof Promise) {
         const promise = this.result;
         if (promise.state === 'pending') {
-          return promise.then(func);
+          return state ==='fulfilled' ? promise.then(func) : promise.catch(func);
         } else {
           this.result = func(promise.result);
         }
@@ -69,26 +56,15 @@ class Promise {
         this.result = func(this.result);
       }
     }
+  };
 
+  then(func) {
+    this.#libThenCatch('fulfilled', func, this.#arrOnFulfilled);
     return this;
   }
 
-  catch (func) {
-    if (this.state === 'pending') {
-      this.#arrOnRejected.push(func);
-    } else if (this.state === 'rejected') {
-      if (this.result instanceof Promise) {
-        const promise = this.result;
-        if (promise.state === 'pending') {
-          return promise.catch(func);
-        } else {
-          this.result = func(promise.result);
-        }
-      } else {
-        this.result = func(this.result);
-      }
-    }
-
+  catch(func) {
+    this.#libThenCatch('rejected', func, this.#arrOnRejected);
     return this;
   }
 
