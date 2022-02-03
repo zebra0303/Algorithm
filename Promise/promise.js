@@ -11,6 +11,15 @@ class Promise {
     this.state = 'pending';
     this.result;
 
+    /**
+     * resolve, reject 함수를 위한 공통 함수
+     *
+     * @param {string} state promise의 상태 fulfilled or rejected
+     * @param {string} value promise의 resolve, reject로 전달된 값
+     * @param {array} arrStateFunc asnyc하게 처리할 상태 함수 배열
+     * @param {array} arrFinalFunc asnyc하게 처리할 finally 함수 배열
+     * @return {void}
+     */
     const libResolveReject = (state, value, arrStateFunc, arrFinalFunc) => {
       this.state = state;
       this.result = value;
@@ -41,6 +50,14 @@ class Promise {
     executor(resolve, reject);
   }
 
+  /**
+   * then, catch 함수를 위한 공통 함수
+   *
+   * @param {string} state promise의 상태 fulfilled or rejected
+   * @param {function} func promise의 결과값을 만들기 위한 함수
+   * @param {array} arrStateFunc asnyc하게 처리할 상태 함수 배열
+   * @return {void}
+   */
   #libThenCatch = (state, func, arrStateFunc) => {
     if (this.state === 'pending') {
       arrStateFunc.push(func);
@@ -48,7 +65,7 @@ class Promise {
       if (this.result instanceof Promise) {
         const promise = this.result;
         if (promise.state === 'pending') {
-          return state ==='fulfilled' ? promise.then(func) : promise.catch(func);
+          return (state ==='fulfilled') ? promise.then(func) : promise.catch(func);
         } else {
           this.result = func(promise.result);
         }
@@ -127,7 +144,7 @@ class Promise {
             resolve(results);
           }
         }
-      })
+      });
     });
   }
 }
