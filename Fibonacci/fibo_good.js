@@ -13,9 +13,9 @@ for(let i=0; i<100; i++) {
   log(fibo(i+1));
 }
 */
-log(fibo(1478));
-
-log("golden ratio : " + fibo(1476) / fibo(1475));
+//log(fibo(1478));
+log(fibo(1474));
+//log("golden ratio : " + fibo(1476) / fibo(1475));
 
 //log(cache);
 /*
