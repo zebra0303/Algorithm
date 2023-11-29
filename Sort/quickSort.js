@@ -1,43 +1,69 @@
-;"use strict";
-var log=function(msg){console.log(msg);};
-var alert=function(msg){log(msg);};
+const log = console.log;
 
-var arr = [3,6,7,5,3,6,2,9,1,5,33,-12,0,-122,-Infinity, 125, 33, 55, 77];
-
-Array.prototype.swap = function (sIdx, tIdx ) {
-	var tmp = this[sIdx];
-	this[sIdx] = this[tIdx];
-	this[tIdx] = tmp; 
+const newSort = (arr) => {
+  const len = arr.length;
+  for (let i = 0; i < len; i++) {
+    for (let j = 0; j < len; j++) {
+      if (arr[i] < arr[j]) {
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+    }
+    //log(arr);
+  }
+  return arr;
 }
 
-Array.prototype.quickSort = function () {
-	function _quickSort(arr, leftIdx, rightIdx) {
-		if(leftIdx < rightIdx) {
-			var pivot = arr[leftIdx],
-			chkLeftIdx = leftIdx,
-			chkRightIdx = rightIdx;
+const partitioning = (arr, start, end) => {
+  // 최종적으로 start++이 되고 넘아갈거라 반드시 floor로 처리 
+  const pidx = Math.floor((start + end)/2);
 
-			while(chkLeftIdx < chkRightIdx) {
-				while(arr[chkRightIdx] > pivot) {
-					chkRightIdx--;
-				}
-				while(chkLeftIdx < chkRightIdx && arr[chkLeftIdx] <= pivot) {
-					chkLeftIdx++;
-				}
-				
-				arr.swap(chkLeftIdx, chkRightIdx);
-			}
+  while(start <= end) {
+    while(arr[start] < arr[pidx]) {
+      start++;
+    }
+    
+    while(arr[end] > arr[pidx]) {
+      end--;
+    }
+    
+    if (start <= end) { 
+      // swap
+      [arr[start], arr[end]] = [arr[end], arr[start]];
+      // 최종적으로 넘겨줄 pidx값이므로 stert 와 end가 같은 상황에서 + 시켜 줘야 함
+      start++; 
+      end--;
+    }
+  }
 
-			arr.swap(leftIdx, chkLeftIdx);
-
-			_quickSort(arr, leftIdx, chkLeftIdx-1);
-			_quickSort(arr, chkLeftIdx+1, rightIdx);
-		}
-
-		return arr;
-	}
-
-	return _quickSort(this, 0, this.length -1);
+  return start;
 };
-alert(arr.sort());
-alert(arr.quickSort());
+
+const quickSort = (arr, start = 0, end = arr.length-1) => {
+  const pidx = partitioning(arr, start, end);
+
+  if(start < pidx - 1) {
+    quickSort(arr, start, pidx - 1);
+  }
+
+  if (end > pidx) {
+    quickSort(arr, pidx, end);
+  }
+
+  return arr;
+};
+
+const arr1 = [3,6,7,5,3,6,2,9,1,5,33,-12,0,-122,-Infinity, 125, 33, 55, 77];
+const arr2 = [3,6,7,5,3,6,2,9,1,5,33,-12,0,-122,-Infinity, 125, 33, 55, 77];
+const arr3 = [3,6,7,5,3,6,2,9,1,5,33,-12,0,-122,-Infinity, 125, 33, 55, 77];
+
+console.time('justSort');
+log(arr3.sort((a, b) => a - b));
+console.timeEnd('justSort');
+
+console.time('newSort');
+log(newSort(arr2));
+console.timeEnd('newSort');
+
+console.time('quickSort');
+log(quickSort(arr1));
+console.timeEnd('quickSort');
