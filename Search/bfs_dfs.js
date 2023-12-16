@@ -46,16 +46,13 @@ const bfs = (graph, root) => {
 
 const convGraph = (edges) => {
   const graph = {};
-
-  for (edge of edges) {
-    const [a, b] = edge;
+  for (const [a, b] of edges) {
     if (!(a in graph)) graph[a] = [];
     if (!(b in graph)) graph[b] = [];
 
     graph[a].push(b);
     graph[b].push(a);
   }
-
   return graph;
 };
 
