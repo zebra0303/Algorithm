@@ -28,6 +28,24 @@ const dfs = (graph, root) => {
   return result;
 };
 
+const dfsRecursive = (graph, node) => {
+  const result = [];
+  const visited = new Set();
+
+  const dfs = (graph, node, visited) => {
+    if (visited.has(node)) return;
+    visited.add(node);
+    result.push(node);
+
+    for (const child of graph[node]) {
+      dfs(graph, child, visited);
+    }
+  };
+
+  dfs(graph, node, visited);
+  return result;
+};
+
 const bfs = (graph, root) => {
   const result = [];
   const waiting = [];
@@ -60,4 +78,5 @@ const graph = convGraph(edges);
 
 log('graph: ', graph);
 log('dfs: ', dfs(graph, 1));
+log('dfs(recursive): ', dfsRecursive(graph, 1));
 log('bfs: ', bfs(graph, 1));
