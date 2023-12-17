@@ -13,64 +13,13 @@ const edges = [
   [7, 8],
 ];
 
-const dfs = (graph, root) => {
-  const result = [];
-  const waiting = [];
-  waiting.push(root);
-
-  while (waiting.length > 0) {
-    const current = waiting.pop();
-    if (!result.includes(current)) {
-      result.push(current);
-      waiting.push(...graph[current]);
-    }
-  }
-
-  return result;
-};
-
-const dfsRecursive = (graph, root) => {
-  const result = [];
-  const visited = new Set();
-
-  const dfs = (graph, node, visited) => {
-    if (visited.has(node)) return;
-    visited.add(node);
-    result.push(node);
-
-    for (const child of graph[node]) {
-      dfs(graph, child, visited);
-    }
-  };
-
-  dfs(graph, root, visited);
-
-  return result;
-};
-
-const bfs = (graph, root) => {
-  const result = [];
-  const waiting = [];
-  waiting.push(root);
-
-  while (waiting.length > 0) {
-    const current = waiting.shift();
-    if (!result.includes(current)) {
-      result.push(current);
-      waiting.push(...graph[current]);
-    }
-  }
-
-  return result;
-};
-
 const convGraph = (edges) => {
   const graph = {};
 
-  for (const [a, b] of edges) {
+  for (const edge of edges) {
+    const [a, b] = edge;
     if (!(a in graph)) graph[a] = [];
     if (!(b in graph)) graph[b] = [];
-
     graph[a].push(b);
     graph[b].push(a);
   }
@@ -80,7 +29,55 @@ const convGraph = (edges) => {
 
 const graph = convGraph(edges);
 
-log('graph: ', graph);
-log('dfs: ', dfs(graph, 1));
-log('dfs(recursive): ', dfsRecursive(graph, 1));
-log('bfs: ', bfs(graph, 1));
+const depthFirstPrint = (graph, source, visited = new Set()) => {
+  const result = [];
+  const stack = [source];
+
+  while (stack.length > 0) {
+    const current = stack.pop();
+    if (visited.has(current)) continue;
+    visited.add(current);
+    result.push(current);
+
+    for (const child of graph[current]) {
+      stack.push(child);
+    }
+  }
+
+  return result;
+};
+
+const depthFirstPrintRecursive = (graph, source, visited = new Set()) => {
+  if (visited.has(source)) return [];
+  visited.add(source);
+  let children = [];
+  for (const child of graph[source]) {
+    children = [
+      ...depthFirstPrintRecursive(graph, child, visited),
+      ...children,
+    ];
+  }
+
+  return [source, ...children];
+};
+
+const breadthFirstPrint = (graph, source, visited = new Set()) => {
+  const result = [];
+  const queue = [source];
+
+  while (queue.length > 0) {
+    const current = queue.shift();
+    if (visited.has(current)) continue;
+    visited.add(current);
+    result.push(current);
+    for (const child of graph[current]) {
+      queue.push(child);
+    }
+  }
+
+  return result;
+};
+
+log(depthFirstPrint(graph, 1));
+log(depthFirstPrintRecursive(graph, 1));
+log(breadthFirstPrint(graph, 1));
