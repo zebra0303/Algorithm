@@ -1,5 +1,6 @@
 const log = console.log;
 // data sample : https://record-everything.tistory.com/entry/%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0-DFS%EC%99%80-BFS
+// https://www.youtube.com/watch?v=fAAZixBzIAI
 const edges = [
   [1, 2],
   [1, 3],
@@ -28,7 +29,7 @@ const dfs = (graph, root) => {
   return result;
 };
 
-const dfsRecursive = (graph, node) => {
+const dfsRecursive = (graph, root) => {
   const result = [];
   const visited = new Set();
 
@@ -42,7 +43,8 @@ const dfsRecursive = (graph, node) => {
     }
   };
 
-  dfs(graph, node, visited);
+  dfs(graph, root, visited);
+
   return result;
 };
 
@@ -64,6 +66,7 @@ const bfs = (graph, root) => {
 
 const convGraph = (edges) => {
   const graph = {};
+
   for (const [a, b] of edges) {
     if (!(a in graph)) graph[a] = [];
     if (!(b in graph)) graph[b] = [];
@@ -71,6 +74,7 @@ const convGraph = (edges) => {
     graph[a].push(b);
     graph[b].push(a);
   }
+
   return graph;
 };
 
