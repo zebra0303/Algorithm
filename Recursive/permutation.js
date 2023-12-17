@@ -4,7 +4,7 @@ const log = console.log;
 const permutations01 = (arr) => {
   const result = [];
 
-  const permute = (i, arr) => {
+  const permutate = (i, arr) => {
     if (i === arr.length) {
       result.push([...arr]);
     }
@@ -12,13 +12,13 @@ const permutations01 = (arr) => {
     for (let j = i; j < arr.length; j++) {
       // swap
       [arr[i], arr[j]] = [arr[j], arr[i]];
-      permute(i + 1, arr);
+      permutate(i + 1, arr);
       // swap back;
       [arr[i], arr[j]] = [arr[j], arr[i]];
     }
   };
 
-  permute(0, arr);
+  permutate(0, arr);
 
   return result;
 };
