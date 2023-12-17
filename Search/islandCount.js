@@ -10,6 +10,7 @@ W는 물이고 L(연결된 L포함)은 섬. 섬 갯수 구하기
   [ 'W', 'W', 'L', 'L', 'W' ],
   [ 'L', 'L', 'W', 'W', 'W' ]
 ]
+https://www.youtube.com/watch?v=2_Uuixtc5i0&t=5961s
 */
 const islandCount = (grid) => {
   const visited = new Set();
